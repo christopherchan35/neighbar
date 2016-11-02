@@ -18,11 +18,18 @@ class BarsController < ApplicationController
   end
 
   def create
-    @bar.new(bar_params)
+    @bar = Bar.new(bar_params)
     @neighborhood = Neighborhood.find(params[:neighborhood_id])
-
+    @bar.neighborhood = @neighborhood
     if @bar.save
-      
+      if request.xhr?
+        render json: @bar
+      else
+        redirect_to neighborhood_bar_path(@neighborhood, @bar)
+      end
+    else
+      @errors = @bar.errors.full_messages
+      render 'new'
     end
   end
 
@@ -31,6 +38,6 @@ class BarsController < ApplicationController
 
   private
   def bar_params
-    params.require(:bar).permit(:name, :speciality_drink, :cash_only)
+    params.require(:bar).permit(:name, :specialty_drink, :cash_only)
   end
 end
