@@ -1,0 +1,18 @@
+<% if @errors %>
+  <% @errors.each do |err| %>
+    <p><%= err %></p>
+  <% end %>
+<% end %>
+
+<%= form_for [:neighborhood, @bar], remote: true, id: 'formy' do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :specialty_drink %>
+  <%= f.text_field :specialty_drink %><br>
+
+  <%= f.label :cash_only %>
+  <%= f.select :cash_only, options_for_select([true,false]) %><br>
+
+  <%= f.submit %>
+<% end %>
