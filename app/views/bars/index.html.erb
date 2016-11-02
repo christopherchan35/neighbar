@@ -1,0 +1,7 @@
+<h1>Bars yo</h1>
+
+<%= link_to "Add a bar", new_neighborhood_bar_path(@neighborhood) %>
+
+<% @bars.each do |bar| %>
+  <p><%= link_to bar.name, neighborhood_bar_path(@neighborhood, bar) %></p>
+<% end %>
